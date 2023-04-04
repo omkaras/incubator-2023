@@ -1,0 +1,11 @@
+#Start nginx container and port forwarding
+docker run -it --rm -d -p 8085:80 --name web nginx
+
+#Check logs
+docker  <containerId> logs
+
+#Go inside the container
+docker exec -it <containerId> sh
+
+#Stop the container
+docker stop <containerId>
