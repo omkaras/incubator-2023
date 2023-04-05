@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY go.mod ./
 
-#RUN go mod download
+RUN go mod download
 
 COPY *.go ./
 
-#RUN go build -o /docker-gs-ping
+RUN go build -o /docker-gs-ping
 
-EXPOSE 8084
+EXPOSE 8080
 
-CMD [ "go", "run", "main.go" ]
+CMD [ "/docker-gs-ping" ]
