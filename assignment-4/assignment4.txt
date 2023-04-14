@@ -1,0 +1,38 @@
+#Create volume
+docker volume create my-data
+
+#Inspect volume
+docker volume inspect my-data
+
+Output-
+[
+    {
+        "CreatedAt": "2023-04-12T19:15:53Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/my-data/_data",
+        "Name": "my-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+#Create a text file and put a sample text in it
+touch data.txt
+
+#Build docker image
+docker build -t omi/node-app .
+
+#Run container with volume and exposing port 3001
+docker run -d -p 3001:8080 -v ${PWD}/data.txt:/var/lib/docker/volumes/my-data/data.txt omi/node-app
+
+#Call API which read the file inside volume
+curl -L http://localhost:3001/_data
+Output- Welcome to the data!
+
+#Run another container with volume and exposing port 3002
+docker run -d -p 3002:8080 -v ${PWD}/data.txt:/var/lib/docker/volumes/my-data/data.txt omi/node-app
+
+#Call API which read the file inside volume for port 3002
+curl -L http://localhost:3002/_data
+Output- Welcome to the data!
