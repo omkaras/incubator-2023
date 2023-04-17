@@ -1,10 +1,13 @@
 Image: https://hub.docker.com/layers/omkaras/go-app/v1/images/sha256-5b324cd417a343a66e505a297652037263232f7131d8859734545100965e46b8?context=repo
 
-#Create docker build
-docker build -t go-app .
+#Try to create a docker image out of it with the base image of golang:alpine
+#Tag the docker image with v1
+docker build -t omi/go-app:v1 .
 
 #Run docker image
 docker run -d -p 8089:8080 go-app
+
+docker push omkaras/go-app:v1
 
 #Check API container app is exposing
 curl -L http://localhost:8089
