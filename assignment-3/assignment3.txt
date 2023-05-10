@@ -1,0 +1,9 @@
+#Build docker file
+docker build -t asn3 .
+
+#Run docker file
+docker run -d -p 8083:8080 asn3
+faec6e563e42fffef5c28f279fe0b2ed9d72b77b7aa5adf6b914c48bb51e92fe
+
+ ~/d/t/incubator-2023/assignment-3> curl http://localhost:8083
+hello :)

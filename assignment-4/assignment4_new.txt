@@ -1,0 +1,41 @@
+#Create volume
+docker volume create my-data
+
+#Inspect volume
+docker volume inspect my-data
+
+Output-
+[
+    {
+        "CreatedAt": "2023-04-12T19:15:53Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/my-data/_data",
+        "Name": "my-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+#Create container 1 and mount the volume
+docker run -d --name container-1 -p 8084:8080 -v my-data:/usr/src/app/data asn4
+
+#Go inside the container 1
+docker exec -it fe47e13ef6c1 sh
+
+#Check if /data has any file
+cd data
+
+#Create container 2 and mount the volume
+docker run -d --name container-2 -p 8085:8080 -v my-data:/usr/src/app/data asn4
+
+#Go inside container 2 /data and create a file hello.txt
+docker exec -it 45e649a0157b sh                                                 ✔  at 12:20:04 AM
+/usr/src/app # cd data/
+/usr/src/app/data # ls
+/usr/src/app/data # ls
+/usr/src/app/data # touch hello.txt
+
+#Go back the container 1 and ls /data
+/usr/src/app/data # ls
+hello.txt
